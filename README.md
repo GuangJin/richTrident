@@ -11,12 +11,10 @@ All the [prerequisites by the original Storm](http://storm.incubator.apache.org/
 
 ##Play with RichTrident
 1. To play with richTrident, first clone it by `git clone https://github.com/GuangJin/richTrident.git`.
-
 2. Run `mvn eclipse:eclipse` to create the eclipse project and download dependent jars through maven.
-
 3. Import RichTrident from wherever your clone is, Eclipse shall find two Java projects:
-	..*	richTrident-core: where the core functions of richTrident are implemented
-	..*	richTrident-examples have three exampls on different types of queries can be used in RichTrident.
+    *	richTrident-core: where the core functions of richTrident are implemented
+    *	richTrident-examples have three exampls on different types of queries can be used in RichTrident.
 
 ##Note	
 Only the local mode has been tested so far.
