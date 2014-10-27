@@ -3,19 +3,19 @@
   <parent>
       <artifactId>richTrident</artifactId>
       <groupId>com.jin.storm</groupId>
-      <version>0.0.1-SNAPSHOT</version>
+      <version>0.0.2-SNAPSHOT</version>
       <relativePath>../../pom.xml</relativePath>
   </parent>
   <groupId>org.apache.storm</groupId>
   <artifactId>richTrident-examples</artifactId>
   <name>RighTrident Examples</name>
   <packaging>jar</packaging>
-  <version>0.0.1-SNAPSHOT</version>
+  <version>0.0.2-SNAPSHOT</version>
   	<dependencies>
 		<dependency>
 			<groupId>org.apache.storm</groupId>
 			<artifactId>storm-core</artifactId>
-			<version>0.9.3-incubating-SNAPSHOT</version>
+			<version>0.9.3-rc2-SNAPSHOT</version>
 		</dependency>
 		<dependency>
 			<groupId>com.jin.storm</groupId>
