@@ -16,7 +16,6 @@ import java.util.Map;
 import org.apache.commons.lang3.reflect.FieldUtils;
 
 import com.jin.storm.richTrident.operation.PostRichQueryFunction;
-import com.jin.storm.richTrident.processor.DistributeProcessor;
 import com.jin.storm.richTrident.processor.PostStateQueryProcessor;
 import com.jin.storm.richTrident.state.map.IDBasedMemStateUpdater;
 import com.jin.storm.richTrident.state.map.MemoryRichMapState;
@@ -78,7 +77,7 @@ public class RichStream extends Stream {
     
 	/**
 	 * @brief wrapper of Stream's each().
-	 * @note generate New stream based on operating each tuple.
+	 * @note generate a new RichStream based on operating each tuple.
 	 * @param	inputFields		The input fields.
 	 * @param	function		An operation function works on inputFields and generates functionFields.
 	 * @param	functionFields	The output fields from function.
@@ -111,15 +110,7 @@ public class RichStream extends Stream {
        	if (indexField.size() != 1)
     		throw new IllegalArgumentException("RichStream can only index tuples based on a single field. Got this instead: "+ indexField.toString());
         
-        Stream stream = this.broadcast();
-        stream = _topology.addSourcedNode(stream,
-                new ProcessorNode(
-                	_topology.getUniqueStreamId(),
-                    _name,
-                    _node.allOutputFields,
-                    _node.allOutputFields,
-                    new DistributeProcessor(identityFields))
-                    );//this is my distributor
+        Stream stream = this.partitionBy(identityFields);
         return stream.partitionPersist(new MemoryRichMapState.Factory(identityFields, indexField, indexMap), this.getOutputFields(), new IDBasedMemStateUpdater(identityFields, indexField, _node.allOutputFields),_node.allOutputFields);
 	}
 	
@@ -138,7 +129,8 @@ public class RichStream extends Stream {
         Node stateNode = null;
         Map<String, List<Node>> colocateMap = null;
 		try {
-			stateNode = (Node) FieldUtils.readField(state, "_node", true);//Reflection is used to get the unmodified field, which might cause issues if the securityManager is on
+			stateNode = (Node) FieldUtils.readField(state, "_node", true);
+			//Reflection is used to get the unmodified field, which might cause issues if the securityManager is on
 			colocateMap = (Map<String, List<Node>>) FieldUtils.readField(_topology, "_colocate", true);
 		} catch (IllegalAccessException e) {
 			throw new RuntimeException(e);

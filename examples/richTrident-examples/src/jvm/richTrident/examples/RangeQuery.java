@@ -73,7 +73,7 @@ public class RangeQuery {
 			cluster.submitTopology("richTrident", conf, buildTopology(drpc));
 			for (int i = 0; i < 100; i++) {
 				System.out.println("DRPC RESULT: "+ drpc.execute("drpc", "2 5"));
-				Thread.sleep(200);
+				Thread.sleep(1000);
 			}
 		} else {
 			conf.setNumWorkers(3);
