@@ -69,7 +69,7 @@ public class IDBasedMemStateUpdater implements StateUpdater<RichMapState>{
         List<TridentTuple> outputTuples = new ArrayList<TridentTuple>(tuples.size());
         
         for(TridentTuple t: tuples) {
-        	System.out.println("IDBasedMemStateUpdater@"+Integer.toHexString(System.identityHashCode(this))+" receives tuple:"+t);
+        	//System.out.println("IDBasedMemStateUpdater@"+Integer.toHexString(System.identityHashCode(this))+" receives tuple:"+t);
         	ids.add(_idFactory.create(t).get(0));//get the identity object
         	outputTuples.add(_outputFactory.create(t));
         }
